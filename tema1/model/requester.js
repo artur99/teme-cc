@@ -14,7 +14,7 @@ var get_page = function(link, done) {
 
     request(link, function (error, response, body) {
         var latency = Date.now() - time_st
-        logs.push({domain: host, latency: latency, request: link, response: err ? error.message : body})
+        logs.push({domain: host, latency: latency, request: link, response: error ? error.message : body})
 
         if(error) return done(error.message)
 

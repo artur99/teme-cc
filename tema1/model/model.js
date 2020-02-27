@@ -67,7 +67,6 @@ var get_gravatar_link = function(email, next) {
     var email = email.trim().toLowerCase()
 
     var hash = crypto.createHash('md5').update(email).digest("hex")
-
     var link = `https://www.gravatar.com/avatar/${hash}`
 
     next(null, link)
@@ -79,7 +78,7 @@ var get_username_from_email = function(email) {
 
 var get_movie = function(email, next) {
 
-    return next(null, {"username": "david1989mail", "year": 2004, "title":"Frozen II","description":"Elsa, Anna, Kristoff and Olaf head far into the forest to learn the truth about an ancient mystery of their kingdom.","imdb_id":"tt4520988","imdb_rating":"7.2","image":"https://m.media-amazon.com/images/M/MV5BMjA0YjYyZGMtN2U0Ni00YmY4LWJkZTItYTMyMjY3NGYyMTJkXkEyXkFqcGdeQXVyNDg4NjY5OTQ@._V1_SX300.jpg","gravatar_link":"https://www.gravatar.com/avatar/056fe50266054ed3a511cf0f701e4518"})
+    // return next(null, {"username": "david1989mail", "year": 2004, "title":"Frozen II","description":"Elsa, Anna, Kristoff and Olaf head far into the forest to learn the truth about an ancient mystery of their kingdom.","imdb_id":"tt4520988","imdb_rating":"7.2","image":"https://m.media-amazon.com/images/M/MV5BMjA0YjYyZGMtN2U0Ni00YmY4LWJkZTItYTMyMjY3NGYyMTJkXkEyXkFqcGdeQXVyNDg4NjY5OTQ@._V1_SX300.jpg","gravatar_link":"https://www.gravatar.com/avatar/056fe50266054ed3a511cf0f701e4518"})
 
     get_top_movies(function(err, movie_list) {
         if(err) return next(err)
