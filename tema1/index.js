@@ -21,7 +21,8 @@ app.get('/get_movie', (req, res) => {
     })
 })
 app.get('/metrics', (req, res) => {
-    res.json(model.get_metrics())
+    res.header("Content-Type", 'application/json')
+    res.send(JSON.stringify(model.get_metrics(), null, 4))
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
