@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            min-height: 100%;
+        }
+
+        .main {
+            width: 95%;
+            max-width: 600px;
+            margin: 15vh auto;
+            text-align: center;
+        }
+        .big-email#email-ink {
+            background: white;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0px 1px 2px 0 rgba(48, 48, 48, 0.42);
+            padding: 5px 25px;
+        }
+        .btn-big#btn-ink {
+            position: relative;
+            display: inline-block;
+            border-radius: 10px;
+            padding: 6px 65px;
+            height: auto;
+            font-size: 15px;
+            margin: 18px;
+            font-weight: 500;
+            box-shadow: none;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            overflow: hidden;
+            transition: .3s all;
+            z-index: 10;
+            margin-top: 40px;
+        }
+        button#btn-ink:before {
+            content: '';
+            background: white;
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            top: -99px;
+            left: 300px;
+            transform: rotate(40deg);
+            transition: .3s all;
+            z-index: -1;
+        }
+        .btn-big#btn-ink:hover {
+            color: #555;
+        }
+        .btn-big#btn-ink:hover:before {
+            left: 0;
+        }
+        .result-space {
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        .r-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
+            border: 2px solid white;
+            margin: 3px;
+        }
+        .hellop, .hello2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 300;
+        }
+        .hello2 {
+            margin-top: 10px;
+        }
+
+        .movie-entry {
+            display: block;
+            margin: 30px 0;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 1px 2px 0 rgba(48, 48, 48, 0.42);
+            overflow: hidden;
+            color: #333;
+        }
+        .movie-entry .movie-avatar {
+            width: 120px;
+            height: 180px;
+            float: left;
+            background-size: cover;
+            background-position: center center;
+        }
+        .movie-entry .movie-description {
+            float: left;
+            height: 180px;
+            padding: 10px;
+            width: 480px;
+            text-align: left;
+        }
+        .movie-entry .movie-description h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 500;
+            padding-top: 4px;
+        }
+        .movie-entry .movie-description p {
+            font-size: 13px;
+        }
+        .movie-entry .movie-description .imdblink {
+            background: #333;
+            color: #fff;
+            float: right;
+            font-size: 10px;
+            padding: 2px 10px;
+            border-radius: 4px;
+        }
+
+        .result-space {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main">
+        <form action="" id="big-form">
+            <input type="email" placeholder="Type your email to start..." class="big-email" id="email-ink" required>
+            <br>
+            <button type="submit" class="btn btn-big" id="btn-ink">Find a movie</button>
+        </form>
+        <div class="result-space">
+            <img src="https://via.placeholder.com/150" alt="" class="r-avatar">
+            <p class="hellop">Hello, <span class="username">david1989mail</span>!</p>
+            <p class="hello2">
+                Here is the movie we are suggesting to you:
+            </p>
+
+            <div class="movie-entry">
+                <div class="movie-avatar" style="background-image:url(https://image.tmdb.org/t/p/w300/aQvJ5WPzZgYVDrxLX4R6cLJCEaQ.jpg)"></div>
+                <div class="movie-description">
+                    <a href="imdb" class="imdblink" target="_blank">IMDB (3.9)</a>
+                    <h3>Sonic the Hedgehog (2002)</h3>
+                    <p>Based on the global blockbuster videogame franchise from Sega, Sonic the Hedgehog tells the story of the world’s speediest hedgehog as he embraces his new home on Earth. In this live-action adventure comedy, Sonic and his new best friend team up to defend the planet from the evil genius Dr. Robotnik and his plans for world domination.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(function() {
+            $("#big-form").on("submit", function(e) {
+                $(".result-space").slideUp()
+                let email = $(".big-email").val().trim()
+                $.get("/get_movie?email=" + encodeURIComponent(email)).done(function(data) {
+                    if(!data || typeof data != 'object') {
+                        alert("Error, invalid response: " + data)
+                        return
+                    }
+                    if(data.error) {
+                        alert("Error: " + data.error)
+                        return
+                    }
+
+                    $(".result-space").find(".r-avatar").attr("src", data.gravatar_link)
+                    $(".result-space").find(".movie-avatar").css("background-image", 'url(' + data.image + ')')
+                    $(".result-space").find(".movie-entry h3").html(data.title + ` (${data.year})`)
+                    $(".result-space").find(".movie-entry p").html(data.description)
+                    $(".result-space").find(".imdblink").html(`IMDB (${data.imdb_rating})`)
+                    $(".result-space").find(".imdblink").attr("href", "https://www.imdb.com/title/" + data.imdb_id + "/")
+
+
+                    $(".result-space").slideDown()
+                })
+                return false
+            })
+        })
+    </script>
+</body>
+</html>
