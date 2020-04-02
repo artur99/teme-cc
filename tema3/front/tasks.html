@@ -10,28 +10,26 @@
     <link rel="stylesheet" href="https://storage.googleapis.com/cc-tema-3/static/style.css?v=0.5">
 </head>
 <body>
-    <div class="main card">
+    <div class="main larger card">
         <div class="card-content">
-            <h3>Register</h3>
+            <h3>Your tasks</h3>
+            <p><smal><a href="#" class="logout-btn">Disconnect</a></smal></p>
 
-            <form class="register_form row">
+            <form action="" class="form_add_task row">
                 <div class="input-field col s12">
-                    <input id="input_email" name="email" type="email" class="validate" required>
-                    <label for="input_email">Email address</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="input_pass" name="pass" type="password" class="validate" required>
-                    <label for="input_pass">Password</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="input_cpass" name="cpass" type="password" class="validate" required>
-                    <label for="input_cpass">Confirm Password</label>
-                </div>
-                <div class="text-center">
-                    <input type="submit" class="btn deep-orange" value="Register">
-                    <em class="lower-text">Have an account already? <a href="/">Login here</a></em>
+                    <input id="task_desc" type="text" name="task_desc">
+                    <label class="active" for="task_desc">Type your task and press enter</label>
                 </div>
             </form>
+            <div class="tasklist">
+                Loading...
+                <!-- <div class="task" data-id="1">
+                    <label>
+                        <input type="checkbox" checked="checked" />
+                        <span>Go home and do something</span>
+                    </label>
+                </div> -->
+            </div>
         </div>
     </div>
 
