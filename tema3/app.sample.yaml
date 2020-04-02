@@ -1,0 +1,7 @@
+runtime: nodejs10
+env_variables:
+  GOOGLE_APPLICATION_CREDENTIALS: keys/cc-tema3-mysql-client.json
+  CLOUD_SQL_CONNECTION_NAME: cc-tema-3:us-central1:db-1
+  DB_USER: ****
+  DB_PASS: ****
+  DB_NAME: todo

@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+html {
+    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    min-height: 100%;
+}
+
+.main {
+    width: 95%;
+    max-width: 500px;
+    margin: 15vh auto;
+    text-align: center;
+    background: #fff;
+}
+
+.main h3 {
+    margin: 0;
+    font-size: 30px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.main .lower-text {
+    display: block;
+    margin-top: 30px;
+    margin-bottom: -5px;
+    color: #333;
+    font-style: normal;
+}

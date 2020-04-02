@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/cc-tema-3/static/style.css">
+</head>
+<body>
+
+    <div class="main card">
+        <div class="card-content">
+            <h3>Login</h3>
+
+            <form class="login_form row" method="POST">
+                <div class="input-field col s12">
+                    <input id="input_email" name="email" type="email" class="validate" required>
+                    <label for="input_email">Email address</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="input_pass" name="pass" type="password" class="validate" required>
+                    <label for="input_pass">Password</label>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn deep-orange">
+                    <em class="lower-text">Don't have an account yet? <a href="/register">Register here</a></em>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.login_form').submit(function(e) {
+                e.preventDefault(e)
+
+                var data = {}
+                $('.login_form').serializeArray().map(x => data[x.name] = x.value.trim())
+                if(!data.email || !data.pass) return false
+
+                $.post("/api/login", data)
+                .done(function(resp){
+                    if(resp.error) {
+                        return Swal.fire("Error", resp.error, 'error')
+                    }
+                    Swal.fire("Success", resp.success, 'success').then(_ => {
+                        window.location.href = '/dash'
+                    })
+                })
+
+                return false
+            })
+
+            $('.register_form').submit(function(e) {
+                e.preventDefault(e)
+
+                var data = {}
+                $('.register_form').serializeArray().map(x => data[x.name] = x.value.trim())
+                if(!data.email || !data.pass || !data.cpass) return false
+
+                $.post("/api/register", data)
+                .done(function(resp){
+                    if(resp.error) {
+                        return Swal.fire("Error", resp.error, 'error')
+                    }
+                    Swal.fire("Success", resp.success + ' Now you can login.', 'success').then(_ => {
+                        window.location.href = '/'
+                    })
+                })
+
+                return false
+            })
+        })
+    </script>
+</body>
+</html>

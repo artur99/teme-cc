@@ -1,0 +1,5 @@
+export GOOGLE_APPLICATION_CREDENTIALS='keys/cc-tema3-mysql-client.json'
+export CLOUD_SQL_CONNECTION_NAME='cc-tema-3:us-central1:db-1'
+export DB_USER='****'
+export DB_PASS='****'
+export DB_NAME='todo'
