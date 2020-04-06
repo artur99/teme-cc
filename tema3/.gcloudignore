@@ -15,5 +15,6 @@
 
 # Node.js dependencies:
 node_modules/
-keys/
+keys/credentials.*
 cloudsql/
+app.sample.yaml

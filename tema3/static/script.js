@@ -1,5 +1,7 @@
 var load_tasks = function() {
     $.post("/api/get_tasks").done(task_list => {
+        if(!task_list) return;
+        
         var tot_html = ''
 
         for(let task of task_list) {
@@ -90,5 +92,8 @@ $(document).ready(function(){
         })
     })
 
-    load_tasks()
+
+    if($(".tasklist").length) {
+        load_tasks()
+    }
 })
