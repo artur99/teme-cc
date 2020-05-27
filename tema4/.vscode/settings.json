@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/c34c20bb-c67b-404d-b80c-70549f1c18dc/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/cc-tema4",
+    "appService.deploySubpath": ""
+}
