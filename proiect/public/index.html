@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<title>TBA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/index-style.css">
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a onclick="showHome()" class=""><img class="inbox-btn" src="/logo2.png" height="60px"></a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a onclick="showSearch()" class="w3-bar-item  w3-button"><img class="inbox-btn" src="/search.png" width="40px" height="40px">Search trip</a>
+      <a onclick="showAdd()"  class="w3-bar-item w3-button"><img style="border-radius: 50%;" class="inbox-btn" src="/add-trip.png" width="40px" height="40px">Add trip</a>
+      <a onclick="showProfile()" class="w3-bar-item w3-button"><img class="inbox-btn" src="/profile.png" width="40px" height="40px"/>Profile</a>
+
+      <a onclick="showInbox()"  class="w3-bar-item w3-button"><img style="border-radius: 30px;" class="inbox-btn no-space" src="/inbox.png" width="40px" height="40px"></a>
+    </div>
+  </div>
+  <div style="float: right;">
+    <a style="color:white;" onclick="showTrip()" class="w3-bar-item w3-button"><img class="inbox-btn" src="/trip.png" width="40px" height="40px">My Trip</a>
+  </div>
+  <div style="float: right;">
+    <a style="color:white; " onclick="showAds()" class="w3-bar-item w3-button"><img class="inbox-btn" src="/add.png" width="40px" height="40px">Adverts</a>
+  </div>
+  <div style="float: right;">
+    <a style="color:white; " onclick="showSupport()" class="w3-bar-item w3-button"><img class="inbox-btn" src="/support.png" width="40px" height="40px">Support</a>
+  </div>
+</div>
+<div   class="wrapper">
+<div id="search">
+  <div>
+    <h3>Search</h3>
+  </div>
+  <div class="autocomplete">
+    <p id="s_status"></p>
+  <input id="s_from" class="from" type="input" onkeyup="loadSuggestions3()" placeholder="from">
+  </div><br>
+  <div class="autocomplete">
+  <input id="s_to" class="to" type="input" onkeyup="loadSuggestions4()" placeholder="to">
+  </div><br>
+  <input id="s_date" class="date" type="date"><br>
+  <button class = "style-btn" type="button" onclick="searchTrip()" >Search</button>
+  <div id="searchResults"></div>
+</div>
+<div id="add-trip">
+  <h3>Add new trip</h3>
+  <h2 id="add_trip_status"></h2>
+  <div class="autocomplete">
+  <input id="at_from" class="from" type="input" onkeyup="loadSuggestions()" placeholder="from">
+  </div>
+  <br>
+  <div class="autocomplete">
+  <input id="at_to" class="to" type="input" onkeyup="loadSuggestions2()" placeholder="to">
+  </div>
+  <br>
+  <input id="at_money" class="money" type="input" placeholder="price"><br>
+  <input id="at_persons" class="people" type="input" placeholder="persons"><br>
+  <input id="at_date" class="date" type="date"><br>
+  <input id="at_time" class="time" type="input" placeholder="hour"><br>
+  <button id="add_tripBtn" class = "style-btn" type="button" onclick="addNewTrip()" >post trip</button>
+
+</div>
+<div id="profile">
+  <h3>Your Profile</h3>
+  <div>
+    <img id="inbox-btn" src="/profile.png" width="40px" height="40px">
+    <label id="profile_name">Name</label>
+  </div>
+    <label id="description">Description</label>
+  <div>
+    <button class = "style-btn" style="width: 250px;" type="button" onclick="editDescription()">Edit description</button>
+    <div id="descriptionDiv" style="display: none;">
+    <textarea id="editDescriptionBox" rows="4" cols="50">Type something about you...</textarea><br>
+    <button onclick="updateDescription()" class="switchBtn">UPDATE ABOUT YOU</button>
+    </div>
+  </div>
+
+  <div>
+    <button class = "style-btn" style="width: 250px;" type="button" onclick="showReviews()">Your reviews</button>
+  </div>
+  <div id="yourReviews">
+  </div>
+  <div >
+    <button class = "style-btn" type="button" style="width: 250px;" onclick="showCarSettings()">My car</button>
+    <div id="carBox" style="display: none;">
+      <input type="input" id="carName" placeholder="car"><br>
+      <input type="input" id="carLicense" placeholder="plate number"><br>
+      <input type="input" id="carColor" placeholder="color"><br>
+      <input type="input" id="carType" placeholder="type"><br>
+      <input type="input" id="carYear" placeholder="year"><br>
+      <button type="input" class="switchBtn" id="setCarBtn" onclick="add_car()">SET UP CAR</button>
+    </div>
+  </div>
+</div>
+<div id="inbox">
+  <div>
+    <img id="inbox-btn"   style="border-radius: 30px;" src="/inbox.png" width="50px" height="50px">
+    <h3>Messages</h3>
+  </div>
+  <div id="frontMessenger">
+  </div>
+  <div id="backMessenger" style="display: none;">
+    <div>
+      <img src="/back.png" style="cursor: pointer;"align="left" width="50px" height="40px"  onclick="goFront()"/>
+    </div>
+    <div id="mBox">
+
+    </div>
+  </div>
+</div>
+ <div id="trip">
+   <div>
+    <img src="/trip.png" width="50px" height="50px">
+    <h3>Infos about current trip</h3>
+   </div>
+
+    <button type="button" style="width: 200px;" class="switchBtn" id="passBtn" onclick="showP()" >I'm Passenger</button>
+    <button type="button" style="width: 200px;" class="switchBtn" onclick="showD()" id = "driverBtn">I'm Driver</button>
+  <div id="passengerOptions" style="display: none;">
+    <div>
+      <button class="style-btn" style="width: 250px;" onclick="showActualTrip()" type="button">Actual trip</button>
+    </div>
+    <div id="passengerTrip">
+    </div>
+
+    <div>
+      <button class="style-btn" style="width: 250px;" onclick="mapPassenger()" type="button">My driver on map</button>
+    </div>
+
+
+
+  </div>
+  <div id="driverOptions" style="display: none;">
+    <div>
+      <button class="style-btn" style="width: 250px;" onclick="driverActualTrip()" type="button">Actual Trip</button>
+    </div>
+    <div id="driverTrip">
+    </div>
+    <div>
+      <button class="style-btn"  style="width: 250px;" type="button" onclick="mapDriver()">My passengers on map</button>
+    </div>
+    <div id="map2" style="display: none;">
+      <p>map</p>
+    </div>
+  </div>
+<div id="map" style="display: none;">
+      <p>map</p>
+    </div>
+ </div>
+<div id="ads">
+  <div>
+  <img id="inbox-btn" src="/add.png" width="40px" height="40px">
+  <h3>Advertising Area</h3>
+  </div>
+  <div>
+    <button class="style-btn" style="width: 250px;" type="button" onclick="postAd()"><img id="inbox-btn" src="/add-ads.png" width="40px" height="40px">Post ads</button>
+   </div>
+   <div>
+    <button class="style-btn" style="width: 250px;" type="button" onclick="promoteTrips()"><img id="inbox-btn" src="/promote.png" width="40px" height="40px">Promote trip</button>
+   </div>
+   <div>
+    <button class="style-btn" style="width: 250px;" type="button" ><img id="inbox-btn" src="/no-ads.png" width="40px" height="40px">Remove ads</button>
+   </div>
+</div>
+<div id="support">
+  <div>
+    <img id="inbox-btn" src="/support.png" width="40px" height="40px">
+    <h3>Customer Support</h3>
+    <h4>You can contact us at our 24/7 phone line</h4>
+    <h4>0898933333</h4>
+    <h4>Do you have questions? Do you want to report something?</h4>
+    <h4><a style="color:white;cursor: pointer;" onclick="openForm()">Chat</a> with us right now!</h4>
+    <h4>We truly recommend you to report wrong behaviour of drivers!</h4>
+  </div>
+  <button class="open-button" onclick="openForm()">Chat</button>
+
+<div class="chat-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Chat</h1>
+
+    <label for="msg"><b>Message</b></label>
+    <textarea placeholder="Type message.." id="supportText" name="msg" required></textarea>
+
+    <button type="button" onclick="sendMessageSupport()" class="btn">Send</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+</div>
+
+
+<div id="gallery" class="slideshow-container">
+<div>
+  <h1><span style="color: #DAA520;">TBA Trip Booking App</span> <br> -serves the best trip services for customers-</h1>
+  <h3>Are you a passenger looking for a short and amazing trip?<h3>
+  <h3>Don't hesitate, start <a onclick="showSearch()" style="cursor:pointer; color: white;">searching</a> now!</h3>
+  <h3>Are you a driver who wants to save some money?</h3>
+  <h3>Start driving right now, post you trip <a onclick="showAdd()" style="cursor: pointer;color:white;">here</a>!</h3>
+
+</div>
+<div class="mySlides fade">
+  <img src="img1.jpg" style="width:100%;height: 40%;">
+  <div class="text">Enjoy your trips</div>
+</div>
+
+<div class="mySlides fade">
+  <img src="img7.jpg" style="width:100%;height: 40%;">
+  <div class="text">Faster trips, more time for yourself</div>
+</div>
+
+<div class="mySlides fade">
+  <img src="img2.jpg" style="width:100%;height: 40%;">
+  <div class="text">Modern cars</div>
+</div>
+
+<div class="mySlides fade">
+  <img src="img3.jpg" style="width:100%;height: 40%;">
+  <div class="text">Unique experiences</div>
+</div>
+
+<div class="mySlides fade">
+  <img src="img4.jpg" style="width:100%;height: 40%;">
+  <div class="text">Skillful drivers</div>
+</div>
+
+<div class="mySlides fade">
+  <img src="img5.jpg" style="width:100%;height: 40%;">
+  <div class="text">We bring the best services to you</div>
+</div>
+
+<div class="mySlides fade">
+  <img src="img6.png" style="width:100%;height: 40%;">
+  <div class="text">Full time clients support</div>
+</div>
+
+</div>
+<br>
+
+<div id="dots" style="text-align:center">
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <br>
+  <h3>ADS</h3>
+  <div class="ads"> </div>
+</div>
+<br>
+</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/index-search-suggestions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdmdrQMP05i2W5T854CKftySVJw2KvtzQ&callback=initMap" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<script type="text/javascript" src="/index-script.js"></script>
+
+</body>
+
+</html>
